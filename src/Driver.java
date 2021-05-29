@@ -1,8 +1,8 @@
-import model.Customer;
+import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) {
-        Customer customer = new Customer("first", "second", "email");
-        System.out.println(customer);
+        Scanner scanner = new Scanner(System.in);
+        new MainMenu().launch(scanner);
     }
 }
