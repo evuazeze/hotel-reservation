@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public class ReservationService {
 
     private Map<String, IRoom> rooms = new TreeMap<>();
-    List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
     private ReservationService() {}
 

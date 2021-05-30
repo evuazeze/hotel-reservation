@@ -3,9 +3,9 @@ package model;
 import java.util.Objects;
 
 public class Room implements IRoom {
-    private String roomNumber;
-    private Double price;
-    private RoomType roomType;
+    private final String roomNumber;
+    private final Double price;
+    private final RoomType roomType;
 
     public Room(String roomNumber, Double price, RoomType roomType) {
         this.roomNumber = roomNumber;
@@ -48,10 +48,7 @@ public class Room implements IRoom {
 
     @Override
     public String toString() {
-        return "model.Room{" +
-                "roomNumber='" + roomNumber + '\'' +
-                ", price=" + price +
-                ", roomType=" + roomType +
-                '}';
+        String bedCount = roomType == RoomType.SINGLE ? "Single bed" : "Double bed";
+        return "Room Number: " + roomNumber + " " + bedCount + " " + "Room Price: " + price;
     }
 }
