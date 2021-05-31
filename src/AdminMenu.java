@@ -1,4 +1,5 @@
 import api.AdminResource;
+import model.Customer;
 import model.IRoom;
 import model.Room;
 import model.RoomType;
@@ -24,10 +25,23 @@ public class AdminMenu {
         while (true) {
             Done:
             switch (scanner.nextInt()) {
-                case 1 -> System.out.println("1...");
+                case 1 -> {
+                    Collection<Customer> customers = adminResource.getAllCustomers();
+                    if (!customers.isEmpty()) {
+                        customers.forEach(System.out::println);
+                    } else {
+                        System.out.println("There are no customers at this time");
+                    }
+                    launch(scanner);
+                }
                 case 2 -> {
                     Collection<IRoom> rooms = adminResource.getAllRooms();
-                    rooms.forEach(System.out::println);
+                    if (!rooms.isEmpty()) {
+                        rooms.forEach(System.out::println);
+                    } else {
+                        System.out.println("There are no rooms at this time");
+                    }
+                    launch(scanner);
                 }
                 case 3 -> System.out.println("3...");
                 case 4 -> {
