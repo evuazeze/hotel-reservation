@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 public class ReservationService {
 
-    private Map<String, IRoom> rooms = new TreeMap<>();
-    private List<Reservation> reservations = new ArrayList<>();
+    private final Map<String, IRoom> rooms = new TreeMap<>();
+    private final List<Reservation> reservations = new ArrayList<>();
 
     private ReservationService() {}
 
