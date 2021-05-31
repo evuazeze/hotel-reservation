@@ -1,8 +1,5 @@
 import api.AdminResource;
-import model.Customer;
-import model.IRoom;
-import model.Room;
-import model.RoomType;
+import model.*;
 
 import java.util.*;
 
@@ -43,7 +40,10 @@ public class AdminMenu {
                     }
                     launch(scanner);
                 }
-                case 3 -> System.out.println("3...");
+                case 3 -> {
+                    adminResource.displayAllReservations();
+                    launch(scanner);
+                }
                 case 4 -> {
                     List<IRoom> rooms = new ArrayList<>();
                     AnotherRoom:
