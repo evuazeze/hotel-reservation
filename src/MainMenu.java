@@ -1,5 +1,4 @@
 import api.HotelResource;
-import model.Customer;
 import model.IRoom;
 import model.Reservation;
 
@@ -83,7 +82,22 @@ public class MainMenu {
                         }
                     }
                 }
-                case 2 -> System.out.println("2...");
+                case 2 -> {
+                    while (true) {
+                        try {
+                            System.out.println("Enter Email format: name@domain.com");
+                            String email = scanner.next();
+
+                            Collection<Reservation> reservations = hotelResource.getCustomersReservations(email);
+
+                            reservations.forEach(System.out::println);
+                            launch(scanner);
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input: please try again");
+                        }
+                    }
+                }
                 case 3 -> {
                     while (true) {
                         try {
