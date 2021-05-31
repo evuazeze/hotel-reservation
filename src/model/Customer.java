@@ -19,6 +19,18 @@ public class Customer {
         }
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     private boolean isValidEmail(String email) {
         final String regex = "^\\w+@\\w+\\.\\w+$";
         Pattern pattern = Pattern.compile(regex);
