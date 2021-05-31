@@ -18,7 +18,7 @@ public class HotelResource {
 
     private static HotelResource myInstance;
 
-    private static HotelResource getInstance() {
+    public static HotelResource getInstance() {
         if (myInstance == null) {
             myInstance = new HotelResource();
         }
