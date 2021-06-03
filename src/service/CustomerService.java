@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CustomerService {
 
-    private Map<String, Customer> customers = new HashMap<>();
+    private final Map<String, Customer> customers = new HashMap<>();
 
     private CustomerService() {}
 

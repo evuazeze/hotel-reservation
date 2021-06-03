@@ -4,7 +4,6 @@ import model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ReservationService {
 
@@ -41,11 +40,28 @@ public class ReservationService {
     }
 
     public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
-        List<IRoom> reservedRooms = reservations.stream().map(Reservation::getRoom).collect(Collectors.toList());
-        List<IRoom> unreservedRooms = rooms.values().stream().filter(room -> !reservedRooms.contains(room)).collect(Collectors.toList());
-        List<IRoom> freeRoomsB4CheckinDate = reservations.stream().filter(reservation -> reservation.getCheckOutDate().before(checkInDate)).map(Reservation::getRoom).collect(Collectors.toList());
-        Stream<IRoom> availableRoomsStream = Stream.concat(unreservedRooms.stream(), freeRoomsB4CheckinDate.stream());
-        return availableRoomsStream.collect(Collectors.toList());
+        List<IRoom> reservedRooms = new ArrayList<>();
+        for (Reservation reservation: reservations) {
+            reservedRooms.add(reservation.getRoom());
+        }
+        List<IRoom> unreservedRooms = new ArrayList<>();
+        for (IRoom room: rooms.values()) {
+            if (!reservedRooms.contains(room)) {
+               unreservedRooms.add(room);
+            }
+        }
+        List<IRoom> freeRoomsB4CheckinDate = new ArrayList<>();
+        for (Reservation reservation: reservations) {
+            if (reservation.getCheckOutDate().before(checkInDate)) {
+                freeRoomsB4CheckinDate.add(reservation.getRoom());
+            }
+        }
+
+        List<IRoom> availableRoomsStream = new ArrayList<>();
+        availableRoomsStream.addAll(unreservedRooms);
+        availableRoomsStream.addAll(freeRoomsB4CheckinDate);
+
+        return availableRoomsStream;
     }
 
     public Collection<Reservation> getCustomersReservation(Customer customer) {
