@@ -39,11 +39,29 @@ public class MainMenu {
 
                             if (rooms.isEmpty()) {
                                 System.out.println("There are no rooms available at this time \n");
-                                launch(scanner);
-                                break;
-                            }
+//                                launch(scanner);
+//                                break;
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTime(formatter.parse(checkInDateStr));
+                                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                                Date extendedCheckInDate = calendar.getTime();
+                                calendar.setTime(formatter.parse(checkOutDateStr));
+                                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                                Date extendedCheckOutDate = calendar.getTime();
 
-                            rooms.forEach(System.out::println);
+                                Collection<IRoom> extendedSearchRooms = hotelResource.findARoom(extendedCheckInDate, extendedCheckOutDate);
+
+                                if (extendedSearchRooms.isEmpty()) {
+                                    System.out.println("Or in 7 days from now");
+                                    launch(scanner);
+                                    break;
+                                }
+
+                                System.out.println("But here are some rooms available from " + formatter.format(extendedCheckInDate) + " to " + formatter.format(extendedCheckOutDate));
+                                extendedSearchRooms.forEach(System.out::println);
+                            } else {
+                                rooms.forEach(System.out::println);
+                            }
 
                             System.out.println("\n Would you like to book a room? y/n");
                             String shouldBookRoom = scanner.next().toLowerCase();
@@ -123,7 +141,10 @@ public class MainMenu {
                     new AdminMenu().launch(scanner.reset());
                     return;
                 }
-                case 5 -> System.exit(0);
+                case 5 -> {
+                    scanner.close();
+                    System.exit(0);
+                }
             }
         }
     }
